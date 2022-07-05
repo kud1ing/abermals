@@ -1,4 +1,4 @@
-# Abermals
+# abermals
 
 ASCII/ANSI style retro graphics with Rust.
 
