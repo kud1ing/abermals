@@ -133,5 +133,5 @@ impl Application for App {
 }
 
 pub fn main() {
-    run(Box::new(App::new()), "Abermals", (800.0, 400.0).into());
+    run(Box::new(App::new()), "abermals", (800.0, 400.0).into());
 }
