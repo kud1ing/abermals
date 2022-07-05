@@ -1,4 +1,4 @@
-use abermals::{pattern2, wave, Canvas, Character};
+use abermals::{pattern, pattern2, wave, Canvas, Character, block};
 use druid_shell::piet::{Color, Piet};
 use druid_shell::Region;
 use guiver::{run, Application, UserEvent, WidgetEvent, WidgetId, WidgetManager};
@@ -32,8 +32,10 @@ impl Application for App {
     }
 
     fn setup(&mut self, _widget_manager: &mut WidgetManager) {
-        let water = self.canvas.add_symbol(wave());
-        let grass = self.canvas.add_symbol(pattern2());
+        let id_block = self.canvas.add_symbol(block());
+        let id_pattern = self.canvas.add_symbol(pattern());
+        let id_pattern2 = self.canvas.add_symbol(pattern2());
+        let id_wave = self.canvas.add_symbol(wave());
 
         // Water.
         self.canvas.put_rectangle(
@@ -42,7 +44,7 @@ impl Application for App {
             0,
             20,
             Character::new(
-                water,
+                id_wave,
                 Color::rgb8(0, 100, 255),
                 Some(Color::rgb8(0, 30, 150)),
             ),
@@ -55,28 +57,45 @@ impl Application for App {
             4,
             10,
             Character::new(
-                grass,
+                id_pattern2,
                 Color::rgb8(0, 255, 0),
                 Some(Color::rgb8(0, 100, 0)),
             ),
         );
-
-        /*
 
         // Earth
         self.canvas.put_horizontal_line(
             6,
             14,
             11,
-            Cell::new(pattern("pattern"), "#966", Some("#300")),
-        )?;
+            Character::new(
+                id_pattern,
+                Color::rgb8(200, 100, 100),
+                Some(Color::rgb8(50, 0, 0)),
+            ),
+        );
 
         // Building.
-        self.canvas
-            .put(12, 8, Cell::new(pattern("pattern"), "#999", Some("#333")))?;
-        self.canvas
-            .put(12, 7, Cell::new(block("block"), "#ccc", None))?;
+        self.canvas.put(
+            12,
+            8,
+            Character::new(
+                id_pattern,
+                Color::rgb8(150, 150, 150),
+                Some(Color::rgb8(50, 50, 50)),
+            ),
+        );
+        self.canvas.put(
+            12,
+            7,
+            Character::new(
+                id_block,
+                Color::rgb8(150, 150, 150),
+                None,
+            ),
+        );
 
+        /*
         self.canvas
             .put(13, 4, Cell::new(dot("dot"), "#f0f", Some("#000")))?;
         self.canvas

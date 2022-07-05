@@ -67,7 +67,7 @@ impl Canvas {
     }
 
     /// Paints the canvas.
-    pub fn paint(&mut self, piet: &mut Piet, region: &Region) {
+    pub fn paint(&mut self, piet: &mut Piet, _region: &Region) {
         for row in 0..self.height {
             let character_offset_y = row as f64 * self.character_height;
 
@@ -149,8 +149,8 @@ impl Canvas {
     }
 
     /// Puts a character.
-    pub fn put(&mut self, position: (usize, usize), cell: Character) {
-        self.characters.insert(position, cell);
+    pub fn put(&mut self, index_x: usize, index_y: usize, cell: Character) {
+        self.characters.insert((index_x, index_y), cell);
     }
 
     /// Puts a rectangle, filled with the given character.
@@ -164,7 +164,7 @@ impl Canvas {
     ) {
         for index_y in start_index_y..=end_index_y {
             for index_x in start_index_x..=end_index_x {
-                self.put((index_x, index_y), character.clone());
+                self.put(index_x, index_y, character.clone());
             }
         }
     }
@@ -178,7 +178,7 @@ impl Canvas {
         character: Character,
     ) {
         for index_x in start_index_x..=end_index_x {
-            self.put((index_x, index_y), character.clone());
+            self.put(index_x, index_y, character.clone());
         }
     }
 
