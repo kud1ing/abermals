@@ -1,7 +1,8 @@
-use abermals::{pattern, pattern2, wave, Canvas, Character, block};
+use abermals::{pattern, pattern2, wave, Canvas, Character, block, dot, heart, hash};
 use druid_shell::piet::{Color, Piet};
 use druid_shell::Region;
 use guiver::{run, Application, UserEvent, WidgetEvent, WidgetId, WidgetManager};
+use abermals::box_drawing::{double_bl, double_br, double_horizontal, double_tl, double_tr, double_vertical};
 
 struct App {
     canvas: Canvas,
@@ -33,6 +34,15 @@ impl Application for App {
 
     fn setup(&mut self, _widget_manager: &mut WidgetManager) {
         let id_block = self.canvas.add_symbol(block());
+        let id_dot = self.canvas.add_symbol(dot());
+        let id_double_bl = self.canvas.add_symbol(double_bl());
+        let id_double_br = self.canvas.add_symbol(double_br());
+        let id_double_horizontal = self.canvas.add_symbol(double_horizontal());
+        let id_double_tl = self.canvas.add_symbol(double_tl());
+        let id_double_tr = self.canvas.add_symbol(double_tr());
+        let id_double_vertical = self.canvas.add_symbol(double_vertical());
+        let id_hash = self.canvas.add_symbol(hash());
+        let id_heart = self.canvas.add_symbol(heart());
         let id_pattern = self.canvas.add_symbol(pattern());
         let id_pattern2 = self.canvas.add_symbol(pattern2());
         let id_wave = self.canvas.add_symbol(wave());
@@ -95,59 +105,114 @@ impl Application for App {
             ),
         );
 
-        /*
-        self.canvas
-            .put(13, 4, Cell::new(dot("dot"), "#f0f", Some("#000")))?;
-        self.canvas
-            .put(8, 8, Cell::new(heart("heart"), "#f0f", Some("#fff")))?;
-        self.canvas
-            .put(7, 5, Cell::new(hash("hash"), "#ff0", Some("#f30")))?;
+        // Dot.
+        self.canvas.put(
+            13,
+            4,
+            Character::new(
+                id_dot,
+                Color::rgb8(255, 0, 255),
+                Some(Color::rgb8(0,0,0)),
+            ),
+        );
+
+        // Heart.
+        self.canvas.put(
+            8,
+            8,
+            Character::new(
+                id_heart,
+                Color::rgb8(255, 0, 255),
+                Some(Color::rgb8(255,255,255)),
+            ),
+        );
+
+        // Hash.
+        self.canvas.put(
+            7,
+            5,
+            Character::new(
+                id_hash,
+                Color::rgb8(255, 255, 0),
+                Some(Color::rgb8(255,50,0)),
+            ),
+        );
 
         // Box drawing
         self.canvas.put(
             15,
             12,
-            Cell::new(double_bl("double_bl"), "#fff", Some("#333")),
-        )?;
+            Character::new(
+                id_double_bl,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
         self.canvas.put(
             21,
             12,
-            Cell::new(double_br("double_br"), "#fff", Some("#333")),
-        )?;
+            Character::new(
+                id_double_br,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
         self.canvas.put(
             15,
             10,
-            Cell::new(double_tl("double_tl"), "#fff", Some("#333")),
-        )?;
+            Character::new(
+                id_double_tl,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
+        self.canvas.put(
+            21,
+            10,
+            Character::new(
+                id_double_tr,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
         self.canvas.put(
             15,
             11,
-            Cell::new(double_vertical("double_vertical"), "#fff", Some("#333")),
-        )?;
+            Character::new(
+                id_double_vertical,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
+        self.canvas.put(
+            21,
+            11,
+            Character::new(
+                id_double_vertical,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
         self.canvas.put_horizontal_line(
             16,
             20,
             10,
-            Cell::new(double_horizontal("double_horizontal"), "#fff", Some("#333")),
-        )?;
+            Character::new(
+                id_double_horizontal,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
         self.canvas.put_horizontal_line(
             16,
             20,
             12,
-            Cell::new(double_horizontal("double_horizontal"), "#fff", Some("#333")),
-        )?;
-        self.canvas.put(
-            21,
-            10,
-            Cell::new(double_tr("double_tr"), "#fff", Some("#333")),
-        )?;
-        self.canvas.put(
-            21,
-            11,
-            Cell::new(double_vertical("double_vertical"), "#fff", Some("#333")),
-        )?;
-
-         */
+            Character::new(
+                id_double_horizontal,
+                Color::rgb8(255, 255, 255),
+                Some(Color::rgb8(50,50,50)),
+            ),
+        );
     }
 }
 

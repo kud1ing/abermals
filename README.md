@@ -2,4 +2,4 @@
 
 ASCII/ANSI style retro graphics with Rust.
 
-<img width="545" alt="Screenshot" src="https://user-images.githubusercontent.com/391975/112140652-91c70900-8bd4-11eb-83bf-f1bec2399b9d.png">
+<img width="888" alt="Bildschirmfoto 2022-07-05 um 19 43 55" src="https://user-images.githubusercontent.com/391975/177385769-598d0fd0-c15b-4d7e-bb98-5fd46bd9d415.png">
