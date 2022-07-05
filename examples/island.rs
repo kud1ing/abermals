@@ -1,38 +1,52 @@
-use crate::canvas::Canvas;
-use crate::canvas_dom_svg::CanvasSvg;
-use crate::cell::Cell;
-use crate::error::GameError;
-use crate::symbols::box_drawing::{
-    double_bl, double_br, double_horizontal, double_tl, double_tr, double_vertical,
-};
-use crate::symbols::{block, dot, hash, heart, pattern, pattern2, wave};
+use abermals::{pattern2, wave, Canvas, Character};
+use druid_shell::piet::{Color, Piet};
+use druid_shell::Region;
+use guiver::{run, Application, UserEvent, WidgetEvent, WidgetId, WidgetManager};
 
-///
-pub(crate) struct Game {
-    canvas: CanvasSvg,
+struct App {
+    canvas: Canvas,
 }
 
-impl Game {
-    pub(crate) fn new() -> Self {
-        Game {
-            canvas: CanvasSvg::new("canvas"),
+impl App {
+    fn new() -> Self {
+        App {
+            canvas: Canvas::new(80, 25, 2.0, Color::rgb8(0, 0, 0)),
         }
     }
+}
 
-    /// Runs the game.
-    pub(crate) fn run(&mut self) -> Result<(), GameError> {
-        /*
-        self.canvas.put_horizontal_line(
-            10,
-            15,
-            9,
-            Cell::new(CLASS_FG2, CLASS_BG2, Content::Character('═')),
-        )?;
-        */
+impl Application for App {
+    fn handle_user_event(&mut self, _user_event: &UserEvent) {}
 
-        // Sea.
-        self.canvas
-            .put_rectangle(0, 30, 0, 20, Cell::new(wave("wave"), "#06f", Some("#039")))?;
+    fn handle_widget_event(
+        &mut self,
+        _widget_manager: &mut WidgetManager,
+        _widget_id: WidgetId,
+        _widget_event: &WidgetEvent,
+    ) {
+    }
+
+    fn paint(&mut self, piet: &mut Piet, region: &Region) {
+        // Paint the canvas.
+        self.canvas.paint(piet, region);
+    }
+
+    fn setup(&mut self, _widget_manager: &mut WidgetManager) {
+        let water = self.canvas.add_symbol(wave());
+        let grass = self.canvas.add_symbol(pattern2());
+
+        // Water.
+        self.canvas.put_rectangle(
+            0,
+            30,
+            0,
+            20,
+            Character::new(
+                water,
+                Color::rgb8(0, 100, 255),
+                Some(Color::rgb8(0, 30, 150)),
+            ),
+        );
 
         // Grass.
         self.canvas.put_rectangle(
@@ -40,8 +54,14 @@ impl Game {
             13,
             4,
             10,
-            Cell::new(pattern2("pattern2"), "#0f0", Some("#060")),
-        )?;
+            Character::new(
+                grass,
+                Color::rgb8(0, 255, 0),
+                Some(Color::rgb8(0, 100, 0)),
+            ),
+        );
+
+        /*
 
         // Earth
         self.canvas.put_horizontal_line(
@@ -108,6 +128,10 @@ impl Game {
             Cell::new(double_vertical("double_vertical"), "#fff", Some("#333")),
         )?;
 
-        Ok(())
+         */
     }
+}
+
+pub fn main() {
+    run(Box::new(App::new()), "Abermals", (800.0, 400.0).into());
 }

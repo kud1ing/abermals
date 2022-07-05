@@ -1,16 +1,12 @@
 mod canvas;
-mod canvas_dom_svg;
-mod cell;
-mod error;
-mod game;
-mod symbol;
 mod symbols;
 
-use crate::game::Game;
-use wasm_bindgen::prelude::*;
+pub use canvas::{Canvas, Character};
+pub use symbols::*;
 
-#[wasm_bindgen]
-pub fn run_webassembly() {
-    let mut game = Game::new();
-    let _ = game.run();
-}
+pub const NUMBER_OF_COLUMNS: usize = 9;
+pub const NUMBER_OF_ROWS: usize = 15;
+
+///
+pub type Row = &'static [bool; NUMBER_OF_COLUMNS];
+pub type Symbol = &'static [Row; NUMBER_OF_ROWS];
