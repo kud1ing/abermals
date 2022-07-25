@@ -6,4 +6,4 @@ edition = "2018"
 
 [dependencies]
 druid-shell = "^0"
-guiver = { version = "0.0.1" }
+guiver = { version = "0.1.0" }
